@@ -94,8 +94,8 @@ def create_ticket(title: str, created_by: str, status: str = "open") -> int:
     """Insert a new ticket and return its generated ticket_id."""
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute(f"SELECT COALESCE(MAX(ticket_id), 0) + 1 FROM {SCHEMA}.tickets")
-            new_id = cur.fetchone()["coalesce"]
+            cur.execute(f"SELECT COALESCE(MAX(ticket_id), 0) + 1 AS next_id FROM {SCHEMA}.tickets")
+            new_id = cur.fetchone()["next_id"]
             cur.execute(f"""
                 INSERT INTO {SCHEMA}.tickets (ticket_id, title, status, created_by, created_at)
                 VALUES (%s, %s, %s, %s, NOW())
@@ -124,8 +124,8 @@ def get_messages(ticket_id: int):
 def add_message(ticket_id: int, message_text: str, author: str, author_role: str) -> int:
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute(f"SELECT COALESCE(MAX(message_id), 0) + 1 FROM {SCHEMA}.ticket_messages")
-            new_id = cur.fetchone()["coalesce"]
+            cur.execute(f"SELECT COALESCE(MAX(message_id), 0) + 1 AS next_id FROM {SCHEMA}.ticket_messages")
+            new_id = cur.fetchone()["next_id"]
             cur.execute(f"""
                 INSERT INTO {SCHEMA}.ticket_messages
                     (message_id, ticket_id, message_text, author, author_role, created_at)
