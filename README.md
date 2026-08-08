@@ -4,6 +4,7 @@ A Streamlit app that reads from and writes to Lakebase (`ticketing_system.ticket
 and `ticketing_system.ticket_messages`). No hard-coded data — every view, create,
 and update hits Lakebase directly.
 
+URL For Databricks App: https://ticketing-system-7474650826223471.aws.databricksapps.com/
 ## Files
 
 - `app.py` — Streamlit UI (list tickets, view a ticket's messages, create a
