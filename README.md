@@ -63,3 +63,20 @@ from who is allowed to *read the secret* (governed by the ACL `setup_secrets.py`
 grants), not from short-lived tokens. Rotate the password by re-running
 `setup_secrets.py` with a new URL.
 
+## Reflection
+ 
+**What was the most difficult part?**
+Designing the app and figuring out working with AI to help create the streamlit app.
+ 
+**How is Lakebase different from storing this data in a traditional analytics table?**
+Lakebase is Postgres-compatible operational storage built for an app's
+read/write, row-at-a-time traffic — single-row inserts, updates, and lookups
+with normal transactional guarantees, like this app's `create_ticket` and
+`add_message` calls. A traditional analytics table (e.g. a Delta table in the
+lakehouse) is built for large batch reads and columnar scans over lots of
+rows at once — great for reporting and aggregation, but not designed for the
+kind of frequent single-row writes and low-latency point queries a live
+ticketing UI needs.
+ 
+**What feature would you add next?**
+Planning to add a filtering action based on status.
